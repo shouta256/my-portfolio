@@ -25,7 +25,9 @@ const ResponsiveText: React.FC<ResponsiveTextProps> = ({ children }) => {
       }
     });
 
-    resizeObserver.observe(ref.current);
+    if (ref.current) {
+      resizeObserver.observe(ref.current);
+    }
 
     return () => {
       resizeObserver.disconnect();
@@ -45,12 +47,12 @@ const MainText = () => {
   const [count, setCount] = useState(1); // インデックス1から開始
 
   useEffect(() => {
-    let timer;
+    let timer: number; // timerの型をnumberとして明示
     if (count < fullText.length) {
       timer = setTimeout(() => {
         setText((prev) => prev + fullText.charAt(count));
         setCount(count + 1);
-      }, 100); // 150ミリ秒ごとに1文字追加
+      }, 100); // 100ミリ秒ごとに1文字追加
     }
     return () => clearTimeout(timer); // コンポーネントのアンマウント時にタイマーをクリア
   }, [count, fullText]);
