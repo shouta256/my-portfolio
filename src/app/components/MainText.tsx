@@ -43,18 +43,16 @@ const ResponsiveText: React.FC<ResponsiveTextProps> = ({ children }) => {
 
 const MainText = () => {
   const fullText = "Shota Suzuki's Portfolio";
-  const [text, setText] = useState(fullText.charAt(0)); // 最初の文字で初期化
-  const [count, setCount] = useState(1); // インデックス1から開始
+  const [text, setText] = useState(fullText.charAt(0));
+  const [count, setCount] = useState(1);
 
   useEffect(() => {
-    let timer: number; // timerの型をnumberとして明示
-    if (count < fullText.length) {
-      timer = setTimeout(() => {
-        setText((prev) => prev + fullText.charAt(count));
-        setCount(count + 1);
-      }, 100); // 100ミリ秒ごとに1文字追加
-    }
-    return () => clearTimeout(timer); // コンポーネントのアンマウント時にタイマーをクリア
+    let timer: number = setTimeout(() => {
+      setText((prev) => prev + fullText.charAt(count));
+      setCount(count + 1);
+    }, 100) as unknown as number;
+
+    return () => clearTimeout(timer);
   }, [count, fullText]);
 
   return (
