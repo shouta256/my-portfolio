@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   IconButton,
   Menu,
   MenuButton,
@@ -15,14 +14,12 @@ import { RxHamburgerMenu } from 'react-icons/rx';
 
 interface HeaderProps {
   scrollToRef: (ref: RefObject<HTMLElement>) => void; // スクロール関数の型を明確に定義
-  mainTextRef: RefObject<HTMLElement>;
   worksRef: RefObject<HTMLElement>;
   aboutMeRef: RefObject<HTMLElement>;
 }
 
 const Header: React.FC<HeaderProps> = ({
   scrollToRef,
-  mainTextRef,
   worksRef,
   aboutMeRef,
 }) => {
