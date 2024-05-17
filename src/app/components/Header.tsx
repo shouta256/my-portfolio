@@ -9,11 +9,23 @@ import {
   Switch,
   Text,
 } from '@chakra-ui/react';
-import { useEffect } from 'react';
+import { RefObject, useEffect } from 'react';
 import { useLanguage } from '../hooks/useLanguage';
 import { RxHamburgerMenu } from 'react-icons/rx';
 
-const Header = ({ scrollToRef, worksRef, aboutMeRef }) => {
+interface HeaderProps {
+  scrollToRef: (ref: RefObject<HTMLElement>) => void; // スクロール関数の型を明確に定義
+  mainTextRef: RefObject<HTMLElement>;
+  worksRef: RefObject<HTMLElement>;
+  aboutMeRef: RefObject<HTMLElement>;
+}
+
+const Header: React.FC<HeaderProps> = ({
+  scrollToRef,
+  mainTextRef,
+  worksRef,
+  aboutMeRef,
+}) => {
   const { japanese, toggleLanguage } = useLanguage();
 
   useEffect(() => {
