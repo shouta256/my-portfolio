@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { contentsType } from '../type';
 import { useLanguage } from '../hooks/useLanguage';
 import { useRouter } from 'next/navigation';
+import useIsSmallerThan1080 from '../hooks/useSmallerThan1080';
+import useisSmallerThan768 from '../hooks/useSmallerThan768';
 
 const MotionBox = motion(Box);
 
@@ -12,6 +14,9 @@ interface WorksProps {
 
 const Works: React.FC<WorksProps> = ({ contents }) => {
   const { japanese } = useLanguage();
+  const isSmallerThan1080 = useIsSmallerThan1080();
+  const isSmallerThan768 = useisSmallerThan768();
+
   const router = useRouter();
 
   const handleBoxClick = (id: string) => {
@@ -23,8 +28,12 @@ const Works: React.FC<WorksProps> = ({ contents }) => {
       let boxes = [];
       const remainder = contents?.length % 3;
       if (remainder !== 0) {
-        for (let i = 0; i < 3 - remainder; i++) {
-          boxes.push(<Box key={`additional-${i}`} w='30%' mx={2} />);
+        if (isSmallerThan1080) {
+          boxes.push(<Box key='0' w='45%' mx={2} />);
+        } else {
+          for (let i = 0; i < 3 - remainder; i++) {
+            boxes.push(<Box key={`additional-${i}`} w='30%' mx={2} />);
+          }
         }
       }
       return boxes;
@@ -32,32 +41,42 @@ const Works: React.FC<WorksProps> = ({ contents }) => {
   };
 
   return (
-    <>
-      <Text ml={5} mb={3} fontSize={22} fontWeight={700}>
+    <Box w='100%'>
+      <Text
+        mb={3}
+        fontSize={`${
+          isSmallerThan768 ? '16' : isSmallerThan1080 ? '28' : '30'
+        }`}
+        fontWeight={700}
+      >
         Works
       </Text>
       <Flex flexWrap='wrap' justifyContent='center'>
         {contents?.map((work, index) => (
           <MotionBox
             key={work.id}
-            flex='1 0 30%'
             display='flex'
             alignItems='center'
             justifyContent='center'
-            maxW='30%'
+            w={`${
+              isSmallerThan768 ? '80%' : isSmallerThan1080 ? '45%' : '30%'
+            }`}
+            maxW={`${
+              isSmallerThan768 ? '80%' : isSmallerThan1080 ? '45%' : '30%'
+            }`}
             p='5'
             mx={2}
             mb={3}
             bgImage={`url(${work.mainImage.url})`}
             backgroundSize='cover'
             backgroundPosition='center'
-            height='300px'
+            height={`${isSmallerThan768 ? '40%' : '300px'}`}
             boxSizing='border-box'
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.5, delay: index * 0.2 }}
-            onClick={() => handleBoxClick(work.id)} // クリックイベントハンドラを追加
+            onClick={() => handleBoxClick(work.id)}
           >
             <Box
               w='80%'
@@ -81,7 +100,7 @@ const Works: React.FC<WorksProps> = ({ contents }) => {
         ))}
         {renderAdditionalBoxes()}
       </Flex>
-    </>
+    </Box>
   );
 };
 

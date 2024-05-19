@@ -1,6 +1,8 @@
 import { Box, Text } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { ReactNode, useEffect, useRef, useState } from 'react';
+import useIsSmallerThan1080 from '../hooks/useSmallerThan1080';
+import useIsSmallerThan768 from '../hooks/useSmallerThan768';
 
 const MotionText = motion(Text);
 
@@ -45,6 +47,8 @@ const MainText = () => {
   const fullText = "Shota Suzuki's Portfolio";
   const [text, setText] = useState(fullText.charAt(0));
   const [count, setCount] = useState(1);
+  const isSmallerThan1080 = useIsSmallerThan1080();
+  const isSmallerThan768 = useIsSmallerThan768();
 
   useEffect(() => {
     let timer: number = setTimeout(() => {
@@ -80,7 +84,7 @@ const MainText = () => {
       </style>
       <Box
         my={10}
-        h='40vh'
+        h={`${isSmallerThan768 ? '15vh' : isSmallerThan1080 ? '25vh' : '40vh'}`}
         minH='100px'
         display='flex'
         justifyContent='center'
