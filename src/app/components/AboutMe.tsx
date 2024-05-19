@@ -96,7 +96,7 @@ const AboutMe = () => {
             />
             <Box ml={8}>
               <Text
-                fontSize={`${isSmallerThan1080 ? '18' : '30'}`}
+                fontSize={`${isSmallerThan1080 ? '25' : '30'}`}
                 fontWeight={700}
               >
                 {japanese ? 'スズキ ショウタ' : 'Shota Suzuki'}
