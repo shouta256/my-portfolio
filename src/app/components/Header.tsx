@@ -13,7 +13,7 @@ import { useLanguage } from '../hooks/useLanguage';
 import { RxHamburgerMenu } from 'react-icons/rx';
 
 interface HeaderProps {
-  scrollToRef: (ref: RefObject<HTMLElement>) => void; // スクロール関数の型を明確に定義
+  scrollToRef: (ref: RefObject<HTMLElement>) => void;
   worksRef: RefObject<HTMLElement>;
   aboutMeRef: RefObject<HTMLElement>;
 }
