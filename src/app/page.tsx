@@ -44,7 +44,7 @@ function Home() {
   }
 
   return (
-    <>
+    <Box bg='gray.10'>
       <Header
         scrollToRef={scrollToRef}
         worksRef={worksRef}
@@ -52,14 +52,21 @@ function Home() {
       />
       <Box mx={5}>
         <MainText />
-        <Box ref={worksRef}>
-          <Works contents={data?.contents} />
-        </Box>
-        <Box ref={aboutMeRef}>
-          <AboutMe />
+        <Box
+          display='flex'
+          flexDir='column'
+          justifyContent='center'
+          alignItems='center'
+        >
+          <Box ref={worksRef}>
+            <Works contents={data?.contents} />
+          </Box>
+          <Box ref={aboutMeRef}>
+            <AboutMe />
+          </Box>
         </Box>
       </Box>
-    </>
+    </Box>
   );
 }
 
